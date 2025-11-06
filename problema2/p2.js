@@ -1,37 +1,74 @@
+
+
+
+
 // Lista original
-const listaOriginal = [
+const phones = [
   { make: 'Nokia',   model: 216, color: 'Black' },
   { make: 'Mi Max',  model: 2,   color: 'Gold' },
   { make: 'Samsung', model: 7,   color: 'Blue' }
 ];
 
-// QuickSort genérico por una key: model, color o make
-const ordenarPorKey = (lista, key) => {
-  if (lista.length === 0) return [];   // caso base
+// Ordenar por modelo (numérico)
+const ordenarPorModelo = (lista) => {
+  if (lista.length === 0) {
+    return [];
+  }
 
   const [pivote, ...resto] = lista;
 
-  const menores = resto.filter(phone => phone[key] <  pivote[key]);
-  const mayores = resto.filter(phone => phone[key] >= pivote[key]);
+  const menores = resto.filter(phone => phone.model < pivote.model);
+  const mayores = resto.filter(phone => phone.model >= pivote.model);
 
   return [
-    ...ordenarPorKey(menores, key),
+    ...ordenarPorModelo(menores),
     pivote,
-    ...ordenarPorKey(mayores, key),
+    ...ordenarPorModelo(mayores)
   ];
 };
 
-// "Wrappers" específicos (por modelo, color, marca)
-const ordenarPorModelo = lista => ordenarPorKey(lista, 'model');
-const ordenarPorColor  = lista => ordenarPorKey(lista, 'color');
-const ordenarPorMake   = lista => ordenarPorKey(lista, 'make');
+// Ordenar por color (alfabético)
+const ordenarPorColor = (lista) => {
+  if (lista.length === 0) {
+    return [];
+  }
 
-// Ejemplos de uso
-const porModelo = ordenarPorModelo(listaOriginal);
-const porColor  = ordenarPorColor(listaOriginal);
-const porMake   = ordenarPorMake(listaOriginal);
+  const [pivote, ...resto] = lista;
 
-console.log('Original   :', listaOriginal);
+  const menores = resto.filter(phone => phone.color < pivote.color);
+  const mayores = resto.filter(phone => phone.color >= pivote.color);
+
+  return [
+    ...ordenarPorColor(menores),
+    pivote,
+    ...ordenarPorColor(mayores)
+  ];
+};
+
+// Ordenar por make / marca (alfabético)
+const ordenarPorMake = (lista) => {
+  if (lista.length === 0) {
+    return [];
+  }
+
+  const [pivote, ...resto] = lista;
+
+  const menores = resto.filter(phone => phone.make < pivote.make);
+  const mayores = resto.filter(phone => phone.make >= pivote.make);
+
+  return [
+    ...ordenarPorMake(menores),
+    pivote,
+    ...ordenarPorMake(mayores)
+  ];
+};
+
+// Ejemplos de uso:
+const porModelo = ordenarPorModelo(phones);
+const porColor  = ordenarPorColor(phones);
+const porMake   = ordenarPorMake(phones);
+
+console.log('Original   :', phones);
 console.log('Por modelo :', porModelo);
 console.log('Por color  :', porColor);
 console.log('Por make   :', porMake);

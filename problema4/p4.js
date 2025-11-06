@@ -1,3 +1,5 @@
+
+
 const colores = ['rojo', 'verde', 'azul', 'amarillo', 'gris', 'blanco', 'negro'];
 const aBorrar = ['amarillo', 'cafe', 'blanco'];
 
